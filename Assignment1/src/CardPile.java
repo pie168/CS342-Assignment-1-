@@ -1,8 +1,9 @@
 import java.util.Random;
 
-public class CardPile extends Card{
+public class CardPile {
 
 	public Card[] newDeck;
+	private int deckCounter = 0;
 	private int deckAmount = 52;
 	
 	public CardPile()
@@ -77,6 +78,15 @@ public class CardPile extends Card{
 		}
 		
 		return newDeck;
+	}
+	
+	public void firstDeal(Player inputPlayer)
+	{
+		for(int i = 0; i < 7; i++)
+		{
+			inputPlayer.playerHand[i] = newDeck[deckCounter];
+			deckCounter++;
+		}
 	}
 	
 	public String toString()

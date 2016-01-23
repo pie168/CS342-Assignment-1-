@@ -1,8 +1,11 @@
 
 public class Card{
 	
+	private int cardValue = 0;
+	private boolean isUsed = false;
 	private String rank;
 	private String suit;
+	private String color;
 	
 	public Card()
 	{
@@ -13,11 +16,53 @@ public class Card{
 	{
 		this.rank = inputRank;
 		this.suit = inputSuit;
+		
+		if(inputSuit.equals("C") || inputSuit.equals("S"))
+		{
+			this.color = "Black";
+		}
+		else 
+		{
+			this.color = "Red";
+		}
+		
+		if(inputRank.equals("A"))
+		{
+			cardValue += 1;
+		}
+		else if(inputRank.equals("J"))
+		{
+			cardValue += 11;
+		}
+		else if(inputRank.equals("Q"))
+		{
+			cardValue += 12;
+		}
+		else if(inputRank.equals("K"))
+		{
+			cardValue += 13;
+		}
+		else 
+		{
+			int value = Integer.parseInt(inputRank);
+			
+			cardValue += value;
+		}
+	}
+	
+	public void changedUse()
+	{
+		isUsed = true;
+	}
+	
+	public boolean checkUsed()
+	{
+		return isUsed;
 	}
 	
 	public void getCardInfo()
 	{
-		System.out.println("Card: " + rank + suit);
+		System.out.println("Card: " + rank + suit + " Value: " + cardValue + " Color: " + color);
 	}
 	
 
