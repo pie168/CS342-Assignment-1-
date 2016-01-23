@@ -50,6 +50,8 @@ public class Card{
 		}
 	}
 	
+	
+	
 	public void changedUse()
 	{
 		isUsed = true;
@@ -63,6 +65,11 @@ public class Card{
 	public void getCardInfo()
 	{
 		System.out.println("Card: " + rank + suit + " Value: " + cardValue + " Color: " + color);
+	}
+	
+	public String toString()
+	{
+		return rank+suit;
 	}
 	
 

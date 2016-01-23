@@ -80,13 +80,27 @@ public class CardPile {
 		return newDeck;
 	}
 	
-	public void firstDeal(Player inputPlayer)
+	public Card drawCard()
 	{
-		for(int i = 0; i < 7; i++)
+		return newDeck[deckCounter];
+	}
+	
+	public void firstDeal(Player inputPlayer, Computer inputComputer)
+	{
+		int firstDraw = 0;
+		while(firstDraw < 7)
 		{
-			inputPlayer.playerHand[i] = newDeck[deckCounter];
+			inputPlayer.playerHand[firstDraw] = newDeck[deckCounter];
 			deckCounter++;
+			inputComputer.computerHand[firstDraw] = newDeck[deckCounter];
+			deckCounter++;
+			firstDraw++;
 		}
+	}
+	
+	public int checkDeckCounter()
+	{
+		return deckCounter;
 	}
 	
 	public String toString()
