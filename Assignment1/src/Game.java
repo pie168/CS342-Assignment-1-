@@ -18,6 +18,8 @@ public class Game extends CardPile{
 		
 		player1.displayHand();
 		
+		
+		
 		pile1.addCard(player1.playerHand[0]);
 		pile1.displayPile();
 		
