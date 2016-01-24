@@ -2,17 +2,19 @@
 public class Pile {
 	
 	private Card[] pileDeck;
-	private int pileSize = 1;
+	private int pileNumber;
+	private int pileSize = 2;
 	private int pileCounter = 0;
 	
-	public Pile()
+	public Pile(int inputNumber)
 	{
 		pileDeck = new Card[pileSize];
+		this.pileNumber = inputNumber;
 	}
 	
 	public void growPileSize()
 	{
-		pileSize = pileSize * 2;
+		pileSize = pileSize*2;
 		
 		Card[] temp = new Card[pileSize];
 		for(int i = 0; i < pileDeck.length; i++)
@@ -26,33 +28,32 @@ public class Pile {
 	{
 		for(int i = 0; i < pileDeck.length; i++)
 		{
-			if(pileCounter >= pileSize)
+			if(pileCounter >= pileSize-1)
 			{
 				growPileSize();
 			}
-			else
+			if(pileDeck[i] == null)
 			{
-				if(pileDeck[i].equals(null))
-				{
-					pileDeck[i] = inputCard;
-				}
-				pileCounter++;
+				pileDeck[i] = inputCard;
+				break;
 			}
+			pileCounter++;
 		}
 	}
 	
 	public void displayPile()
 	{
+		System.out.print("Pile " + Integer.toString(pileNumber) + ": ");
 		for(int i = 0; i < pileDeck.length; i++)
 		{
-			if(pileDeck[i].equals(null))
+			if(pileDeck[i] == null)
 			{
-				System.out.println("NULL");
+				//System.out.println("NULL");
 				break;
 			}
 			else
 			{
-				System.out.println(pileDeck[i].toString() + " ");
+				System.out.print(pileDeck[i].toString() + " ");
 			}
 			
 		}

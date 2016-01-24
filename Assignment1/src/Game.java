@@ -3,7 +3,7 @@ public class Game extends CardPile{
 	public static void main(String[] args) {
 		CardPile deck = new CardPile();
 	
-		Pile pile1 = new Pile();
+		Pile pile1 = new Pile(1);
 		
 		//Card[] playerHand = new Card[7];
 		//Card[] computerHand = new Card[7];
@@ -19,11 +19,19 @@ public class Game extends CardPile{
 		player1.displayHand();
 		
 		
-		
+		System.out.println();
 		pile1.addCard(player1.playerHand[0]);
 		pile1.displayPile();
 		
-	/*	player1.displayHand();
+	/*	System.out.println();
+		pile1.addCard(player1.playerHand[1]);
+		pile1.displayPile();
+		
+		System.out.println();
+		pile1.addCard(player1.playerHand[2]);
+		pile1.displayPile();
+		
+		player1.displayHand();
 		System.out.println();
 		comp1.displayHand();
 		System.out.println();
