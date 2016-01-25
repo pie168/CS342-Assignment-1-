@@ -87,7 +87,8 @@ public class CardPile {
 	}
 	public void drawCard(Computer inputComputer)
 	{
-		
+		inputComputer.addCard(newDeck[deckCounter]);
+		deckCounter++;
 	}
 	
 	public void firstDeal(Player inputPlayer, Computer inputComputer)

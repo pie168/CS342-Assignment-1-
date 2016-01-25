@@ -12,24 +12,29 @@ public class Game extends CardPile{
 		Computer comp1 = new Computer();
 		
 		deck.buildDeck();
-		deck.shuffleDeck();
+		//deck.shuffleDeck();
 		
-		deck.firstDeal(player1, comp1);
+		//deck.firstDeal(player1, comp1);
 		
 		player1.displayHand();
 		System.out.println();
 		
-		System.out.println(deck.checkDeckCounter());
+		//System.out.println(deck.checkDeckCounter());
 		
 		deck.drawCard(player1);
 		deck.drawCard(player1);
 		deck.drawCard(player1);
 		
-		System.out.println(deck.checkDeckCounter());
+		//System.out.println(deck.checkDeckCounter());
 		
 		player1.displayHand();
+		pile1.addCard(player1.playerHand[0]);
 		
+		pile1.displayPile();
+		pile1.placeCard(player1.playerHand[3]);
 		
+		player1.displayHand();
+		pile1.displayPile();
 	/*	System.out.println();
 		pile1.addCard(player1.playerHand[0]);
 		pile1.displayPile();

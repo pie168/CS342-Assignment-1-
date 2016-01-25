@@ -50,7 +50,10 @@ public class Card{
 		}
 	}
 	
-	
+	public int getValue()
+	{
+		return cardValue;
+	}
 	
 	public void changedUse()
 	{

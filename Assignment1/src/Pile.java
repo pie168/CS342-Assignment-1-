@@ -24,6 +24,32 @@ public class Pile {
 		pileDeck = temp;
 	}
 	
+	public void placeCard(Card inputCard)
+	{
+		for(int i = 0; i < pileCounter; i++)
+		{
+			if(pileDeck[0] == null)
+			{
+				System.out.println("ERROR: FIRST INDEX IS NULL");
+				break;
+			}
+			else if(pileDeck[i] == null)
+			{
+				int check = inputCard.getValue() - pileDeck[i-1].getValue();
+				
+				if(check == 1)
+				{
+					addCard(inputCard);
+				}
+				else
+				{
+					System.out.println("ERROR: The card: " + inputCard.toString() + " cannot be after " + pileDeck[i-1].toString());
+				}
+				
+			}
+		}
+	}
+	
 	public void addCard(Card inputCard)
 	{
 		for(int i = 0; i < pileDeck.length; i++)
@@ -35,6 +61,7 @@ public class Pile {
 			if(pileDeck[i] == null)
 			{
 				pileDeck[i] = inputCard;
+				pileCounter++;
 				break;
 			}
 			pileCounter++;
