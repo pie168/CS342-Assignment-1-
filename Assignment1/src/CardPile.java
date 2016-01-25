@@ -80,11 +80,14 @@ public class CardPile {
 		return newDeck;
 	}
 	
-	public Card drawCard()
+	public void drawCard(Player inputPlayer)
 	{
-		Card temp = newDeck[deckCounter];
+		inputPlayer.addCard(newDeck[deckCounter]);
 		deckCounter++;
-		return temp;
+	}
+	public void drawCard(Computer inputComputer)
+	{
+		
 	}
 	
 	public void firstDeal(Player inputPlayer, Computer inputComputer)
