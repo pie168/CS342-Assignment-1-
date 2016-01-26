@@ -1,6 +1,10 @@
+import java.util.Scanner;
+
 public class Game extends CardPile{
 	
 	public static void main(String[] args) {
+		Scanner userInput = new Scanner( System.in );
+		
 		CardPile deck = new CardPile();
 	
 		Pile pile1 = new Pile(1);
@@ -24,17 +28,28 @@ public class Game extends CardPile{
 		deck.drawCard(player1);
 		deck.drawCard(player1);
 		deck.drawCard(player1);
-		
+		deck.drawCard(player1);
 		//System.out.println(deck.checkDeckCounter());
 		
 		player1.displayHand();
-		pile1.addCard(player1.playerHand[0]);
+		System.out.print(">> ");
+		String input = userInput.next();
 		
-		pile1.displayPile();
-		pile1.placeCard(player1.playerHand[3]);
-		
+		player1.findCard(input, pile1);
 		player1.displayHand();
+		
 		pile1.displayPile();
+		System.out.print(">>");
+		input = userInput.next();
+		player1.findCard(input, pile1);
+		pile1.displayPile();
+	
+		
+		
+		
+	//	pile1.addCard(player1.playerHand[1]);
+	//	player1.displayHand();
+	//	pile1.displayPile();
 	/*	System.out.println();
 		pile1.addCard(player1.playerHand[0]);
 		pile1.displayPile();

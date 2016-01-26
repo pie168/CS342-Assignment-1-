@@ -55,6 +55,11 @@ public class Card{
 		return cardValue;
 	}
 	
+	public String getColor()
+	{
+		return color;
+	}
+	
 	public void changedUse()
 	{
 		isUsed = true;

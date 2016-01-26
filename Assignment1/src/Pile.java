@@ -24,32 +24,6 @@ public class Pile {
 		pileDeck = temp;
 	}
 	
-	public void placeCard(Card inputCard)
-	{
-		for(int i = 0; i < pileCounter; i++)
-		{
-			if(pileDeck[0] == null)
-			{
-				System.out.println("ERROR: FIRST INDEX IS NULL");
-				break;
-			}
-			else if(pileDeck[i] == null)
-			{
-				int check = inputCard.getValue() - pileDeck[i-1].getValue();
-				
-				if(check == 1)
-				{
-					addCard(inputCard);
-				}
-				else
-				{
-					System.out.println("ERROR: The card: " + inputCard.toString() + " cannot be after " + pileDeck[i-1].toString());
-				}
-				
-			}
-		}
-	}
-	
 	public void addCard(Card inputCard)
 	{
 		for(int i = 0; i < pileDeck.length; i++)
@@ -58,11 +32,32 @@ public class Pile {
 			{
 				growPileSize();
 			}
-			if(pileDeck[i] == null)
+			if(pileDeck[0] == null)
 			{
-				pileDeck[i] = inputCard;
-				pileCounter++;
+				pileDeck[0] = inputCard;
 				break;
+			}
+			else if(pileDeck[i] == null && pileDeck[i-1] != null)
+			{
+				int value = inputCard.getValue() - pileDeck[i-1].getValue();
+				String prevColor = pileDeck[i-1].getColor();
+				String currColor = inputCard.getColor();
+				
+				if(value == 1 && !(prevColor.equals(currColor)))
+				{
+					pileDeck[i] = inputCard;
+					break;
+				}
+				else if(prevColor.equals(currColor))
+				{
+					System.out.println("ERROR: Color must be alternating R/B.");
+					break;
+				}
+				else
+				{
+					System.out.println("ERROR: The card: " + inputCard.toString() + " cannot be after " + pileDeck[i-1].toString());
+					break; 
+				}
 			}
 			pileCounter++;
 		}

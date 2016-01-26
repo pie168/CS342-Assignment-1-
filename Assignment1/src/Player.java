@@ -47,27 +47,57 @@ public class Player {
 		}
 	}
 	
-	public int searchCard(String targetCard)
+	public void findCard(String targetCard, Pile pileNumber)
 	{
+		int isTargetFound = 0;
 		int targetIndex = 999;
 		
 		for(int i = 0; i < playerHand.length; i++)
 		{
-			if(playerHand[i].toString() == targetCard)
+			if(playerHand[i] == null)
 			{
+				break;
+			}
+			if(playerHand[i].toString().equals(targetCard))
+			{
+				isTargetFound = 1;
 				targetIndex = i;
+				break;
 			}
 		}
-		if(targetIndex == 999)
+		if(isTargetFound == 1 && targetIndex < playerHand.length)
+		{
+			pileNumber.addCard(playerHand[targetIndex]);
+			resizeHand(targetIndex);
+		}
+		else
 		{
 			System.out.println("The card | " + targetCard  + " | does not exist.");
 		}
-		return targetIndex;
+		
 	}
 	
-	public Card returnTargetCard(int inputIndex)
+	public void resizeHand(int emptyIndex)
 	{
-		return playerHand[inputIndex];
+		Card[] temp = new Card[playerHand.length];
+		
+		for(int i = 0; i < playerHand.length; i++)
+		{
+			
+			if(playerHand[i] == null && playerHand[i+1] != null)
+			{
+				temp[i] = playerHand[i+1];
+			}
+			else if(playerHand[i] == null && playerHand[i+1] == null)
+			{
+				break;
+			}
+			else
+			{
+				temp[i] = playerHand[i];
+			}
+		}
+		playerHand = temp;
 	}
 	
 	public void displayHand()
