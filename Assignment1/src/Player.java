@@ -68,6 +68,7 @@ public class Player {
 		if(isTargetFound == 1 && targetIndex < playerHand.length)
 		{
 			pileNumber.addCard(playerHand[targetIndex]);
+			playerHand[targetIndex] = null;
 			resizeHand(targetIndex);
 		}
 		else
@@ -79,22 +80,21 @@ public class Player {
 	
 	public void resizeHand(int emptyIndex)
 	{
-		Card[] temp = new Card[playerHand.length];
+		Card[] temp = new Card[handSize];
 		
-		for(int i = 0; i < playerHand.length; i++)
+		for(int i = 0; i < emptyIndex; i++)
 		{
-			
-			if(playerHand[i] == null && playerHand[i+1] != null)
-			{
-				temp[i] = playerHand[i+1];
-			}
-			else if(playerHand[i] == null && playerHand[i+1] == null)
+			temp[i] = playerHand[i];
+		}
+		for(int i = emptyIndex+1; i < handSize; i++)
+		{
+			if(playerHand[i] == null)
 			{
 				break;
 			}
 			else
 			{
-				temp[i] = playerHand[i];
+				temp[i-1] = playerHand[i];
 			}
 		}
 		playerHand = temp;
