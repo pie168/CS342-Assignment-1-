@@ -28,25 +28,25 @@ public class Card{
 		
 		if(inputRank.equals("A"))
 		{
-			cardValue += 1;
+			cardValue = 1;
 		}
 		else if(inputRank.equals("J"))
 		{
-			cardValue += 11;
+			cardValue = 11;
 		}
 		else if(inputRank.equals("Q"))
 		{
-			cardValue += 12;
+			cardValue = 12;
 		}
 		else if(inputRank.equals("K"))
 		{
-			cardValue += 13;
+			cardValue = 13;
 		}
 		else 
 		{
 			int value = Integer.parseInt(inputRank);
 			
-			cardValue += value;
+			cardValue = value;
 		}
 	}
 	

@@ -24,6 +24,31 @@ public class Pile {
 		pileDeck = temp;
 	}
 	
+	public void movePile(Pile inputPile)
+	{
+		int value = inputPile.pileDeck[0].getValue() - pileDeck[pileCounter].getValue();
+		String currColor = pileDeck[pileCounter].getColor();
+		String prevColor = inputPile.pileDeck[0].getColor();
+		
+		if(value == 1 && !(currColor.equals(prevColor)))
+		{
+			for(int i = pileCounter+1; i < inputPile.pileSize; i++)
+			{
+				int tempCounter = 0;
+				if(pileDeck[i] == null)
+				{
+					System.out.println("NULL INDEX: MovePile Method");
+					break;
+				}
+				else
+				{
+					pileDeck[i] = inputPile.pileDeck[tempCounter];
+					tempCounter++;
+				}
+			}
+		}
+	}
+	
 	public void addCard(Card inputCard)
 	{
 		for(int i = 0; i < pileDeck.length; i++)
