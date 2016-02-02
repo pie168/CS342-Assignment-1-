@@ -1,19 +1,20 @@
 import java.util.Scanner;
 
-public class Game extends CardPile{
+public class Game {
 	
 	public static void main(String[] args) {
 		Scanner scan = new Scanner( System.in );
 		
 		boolean isGame = true;
+		int turn = 0;  //Player is 0. Comp is 1
 		
 		String userInput;
 		int inputPile;
 		
 		CardPile deck = new CardPile();
 	
-		Pile pile1 = new Pile(1);
-		Pile pile2 = new Pile(2);
+		Pile[] pileArray = new Pile[8];
+		
 	/*	Pile pile3 = new Pile(3);
 		Pile pile4 = new Pile(4);
 		Pile pile5 = new Pile(5);
@@ -30,73 +31,118 @@ public class Game extends CardPile{
 		
 		deck.firstDeal(player1, comp1);
 		
-		player1.displayHand();
-		System.out.println();
+		for(int i = 0; i < 8; i++)
+		{
+			pileArray[i] = new Pile(i+1);
+		}
 		
 		
 		while(isGame)
 		{
+			for(int i = 0; i < 8; i++)
+			{
+				pileArray[i].displayPile();
+			}
+			
+			player1.displayHand();
 			System.out.println(">>");
 			userInput = scan.next();
+		
+			if(userInput.equals("Q") || userInput.equals("q"))
+			{
+				System.out.println("EXITING...");
+				break;
+			}
+			
+			if(userInput.equals("D") || userInput.equals("d"))
+			{
+				deck.drawCard(player1);
+			}
+			
+			if(userInput.equals("L") || userInput.equals("l"))
+			{
+				String inputCard = scan.next();
+				int pileInput = scan.nextInt();
+				
+				System.out.print("Searching");
+				for(int i = 0; i < 8; i++)
+				{
+					System.out.print(".");
+					if(pileArray[i].getPileNum() == pileInput)
+					{
+						System.out.println(" |Found Card|");
+						player1.findCard(inputCard, pileArray[i]);
+						break;
+					}
+				}
+			}
+			
+			if(userInput.equals("M") || userInput.equals("m"))
+			{
+				int fromPile = scan.nextInt();
+				int toPile = scan.nextInt();
+
+				for(int i = 0; i < 8; i++)
+				{
+					if(pileArray[i].getPileNum() == fromPile)
+					{
+						for(int w = 0; w < 8; w++)
+						{
+							if(pileArray[w].getPileNum() == toPile)
+							{
+								mergePiles(pileArray[i], pileArray[w]);
+								break;
+							}
+						}
+					}
+				}
+				
+			}
+		
 			
 		
+		
+		}
+
+	}
+	
+	public static void mergePiles(Pile fromPile, Pile toPile)
+	{
+		if(fromPile.pileDeck[0] == null)
+		{
+			System.out.println("Pile: " + fromPile.getPileNum() + " is empty");
+		}
+		else if(toPile.pileDeck[0] == null)
+		{
+			toPile.pileDeck = fromPile.pileDeck;
+			fromPile.pileDeck = null;
+		}
+		else
+		{
+			int toPileSize = toPile.getPileCounter();
+			int value = fromPile.pileDeck[0].getValue() - toPile.pileDeck[toPileSize].getValue();
+			
+			String fromCard = fromPile.pileDeck[0].getColor();
+			String toCard = toPile.pileDeck[toPileSize].getColor();
+			
+			if(value == 1 && !(fromCard.equals(toCard)))
+			{
+				int counter = 0;
+				for(int i = toPileSize+1; i < fromPile.pileDeck.length; i++)
+				{
+					if(fromPile.pileDeck[counter] == null)
+					{
+						System.out.println("NULL: FROM PILE SIZE");
+						fromPile.pileDeck = null;
+						break;
+					}
+					toPile.pileDeck[i] = fromPile.pileDeck[counter];
+					counter++;
+				}
+				
+			}
+			
 		}
 		
-		
-		//System.out.println(deck.checkDeckCounter());
-		
-	/*	deck.drawCard(player1);
-		deck.drawCard(player1);
-		deck.drawCard(player1);
-		deck.drawCard(player1);
-		//System.out.println(deck.checkDeckCounter());
-		
-		player1.displayHand();
-		System.out.print(">> ");
-		String input = userInput.next();
-		
-		player1.findCard(input, pile1);
-		player1.displayHand();
-		
-		pile1.displayPile();
-		System.out.print(">>");
-		input = userInput.next();
-		player1.findCard(input, pile1);
-		pile1.displayPile();
-	*/
-		
-		
-		
-	//	pile1.addCard(player1.playerHand[1]);
-	//	player1.displayHand();
-	//	pile1.displayPile();
-	/*	System.out.println();
-		pile1.addCard(player1.playerHand[0]);
-		pile1.displayPile();
-		
-		System.out.println();
-		pile1.addCard(player1.playerHand[1]);
-		pile1.displayPile();
-		
-		System.out.println();
-		pile1.addCard(player1.playerHand[2]);
-		pile1.displayPile();
-		
-		player1.displayHand();
-		System.out.println();
-		comp1.displayHand();
-		System.out.println();
-		System.out.println(deck.checkDeckCounter());
-	*/
-		
-		
-	/*  deck.buildDeck();
-		deck.toString();
-		System.out.println("======");
-		deck.shuffleDeck();
-		deck.toString(); 
-	*/
-	
 	}
-
 }

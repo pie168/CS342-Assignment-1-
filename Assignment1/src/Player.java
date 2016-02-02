@@ -65,11 +65,11 @@ public class Player {
 				break;
 			}
 		}
+		
 		if(isTargetFound == 1 && targetIndex < playerHand.length)
 		{
-			pileNumber.addCard(playerHand[targetIndex]);
-			playerHand[targetIndex] = null;
-			resizeHand(targetIndex);
+			boolean doResize = pileNumber.addCard(playerHand[targetIndex]);
+			resizeHand(targetIndex, doResize);	
 		}
 		else
 		{
@@ -78,26 +78,36 @@ public class Player {
 		
 	}
 	
-	public void resizeHand(int emptyIndex)
+	public void resizeHand(int emptyIndex, boolean doResize)
 	{
 		Card[] temp = new Card[handSize];
 		
-		for(int i = 0; i < emptyIndex; i++)
+		if(!doResize)
 		{
-			temp[i] = playerHand[i];
+			return;
 		}
-		for(int i = emptyIndex+1; i < handSize; i++)
+		else
 		{
-			if(playerHand[i] == null)
+			playerHand[emptyIndex] = null;
+			
+			for(int i = 0; i < emptyIndex; i++)
 			{
-				break;
+				temp[i] = playerHand[i];
 			}
-			else
+			for(int i = emptyIndex+1; i < handSize; i++)
 			{
-				temp[i-1] = playerHand[i];
+				if(playerHand[i] == null)
+				{
+					break;
+				}
+				else
+				{
+					temp[i-1] = playerHand[i];
+				}
 			}
+			playerHand = temp;	
 		}
-		playerHand = temp;
+		
 	}
 	
 	public void displayHand()

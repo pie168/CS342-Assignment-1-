@@ -1,7 +1,7 @@
 
 public class Pile {
 	
-	private Card[] pileDeck;
+	public Card[] pileDeck;
 	private int pileNumber;
 	private int pileSize = 2;
 	private int pileCounter = 0;
@@ -14,7 +14,7 @@ public class Pile {
 	
 	public void growPileSize()
 	{
-		pileSize = pileSize*2;
+		pileSize = pileSize+5;
 		
 		Card[] temp = new Card[pileSize];
 		for(int i = 0; i < pileDeck.length; i++)
@@ -22,44 +22,24 @@ public class Pile {
 			temp[i] = pileDeck[i];
 		}
 		pileDeck = temp;
+	
 	}
 	
-	public void movePile(Pile inputPile)
+	public boolean addCard(Card inputCard)
 	{
-		int value = inputPile.pileDeck[0].getValue() - pileDeck[pileCounter].getValue();
-		String currColor = pileDeck[pileCounter].getColor();
-		String prevColor = inputPile.pileDeck[0].getColor();
+		boolean temp = false;
 		
-		if(value == 1 && !(currColor.equals(prevColor)))
+		if(pileCounter >= pileSize-1)
 		{
-			for(int i = pileCounter+1; i < inputPile.pileSize; i++)
-			{
-				int tempCounter = 0;
-				if(pileDeck[i] == null)
-				{
-					System.out.println("NULL INDEX: MovePile Method");
-					break;
-				}
-				else
-				{
-					pileDeck[i] = inputPile.pileDeck[tempCounter];
-					tempCounter++;
-				}
-			}
+			growPileSize();
 		}
-	}
-	
-	public void addCard(Card inputCard)
-	{
+		
 		for(int i = 0; i < pileDeck.length; i++)
 		{
-			if(pileCounter >= pileSize-1)
-			{
-				growPileSize();
-			}
 			if(pileDeck[0] == null)
 			{
 				pileDeck[0] = inputCard;
+				temp = true;
 				break;
 			}
 			else if(pileDeck[i] == null && pileDeck[i-1] != null)
@@ -71,6 +51,7 @@ public class Pile {
 				if(value == 1 && !(prevColor.equals(currColor)))
 				{
 					pileDeck[i] = inputCard;
+					temp = true;
 					break;
 				}
 				else if(prevColor.equals(currColor))
@@ -86,12 +67,24 @@ public class Pile {
 			}
 			pileCounter++;
 		}
+		return temp;
 	}
+	
+	public int getPileNum()
+	{
+		return pileNumber;
+	}
+	
+	public int getPileCounter()
+	{
+		return pileCounter;
+	}
+	
 	
 	public void displayPile()
 	{
 		System.out.print("Pile " + Integer.toString(pileNumber) + ": ");
-		for(int i = 0; i < pileDeck.length; i++)
+		for(int i = 0; i < pileSize; i++)
 		{
 			if(pileDeck[i] == null)
 			{
