@@ -115,12 +115,14 @@ public class Game {
 		else if(toPile.pileDeck[0] == null)
 		{
 			toPile.pileDeck = fromPile.pileDeck;
-			fromPile.pileDeck = null;
+			fromPile.resetPile();
 		}
 		else
 		{
 			int toPileSize = toPile.getPileCounter();
-			int value = fromPile.pileDeck[0].getValue() - toPile.pileDeck[toPileSize].getValue();
+			int value = toPile.pileDeck[toPile.getPileCounter()].getValue() - fromPile.pileDeck[0].getValue();
+			
+			System.out.println("Moving pile w/ " + toPile.pileDeck[toPile.getPileCounter()].toString() + " to: " + fromPile.pileDeck[0].toString());
 			
 			String fromCard = fromPile.pileDeck[0].getColor();
 			String toCard = toPile.pileDeck[toPileSize].getColor();
@@ -133,7 +135,7 @@ public class Game {
 					if(fromPile.pileDeck[counter] == null)
 					{
 						System.out.println("NULL: FROM PILE SIZE");
-						fromPile.pileDeck = null;
+						fromPile.resetPile();
 						break;
 					}
 					toPile.pileDeck[i] = fromPile.pileDeck[counter];

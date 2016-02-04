@@ -9,8 +9,7 @@ public class Card{
 	
 	public Card()
 	{
-		rank = "deafult";
-		suit = "default";
+
 	}
 	public Card(String inputRank, String inputSuit)
 	{
@@ -49,6 +48,12 @@ public class Card{
 			cardValue = value;
 		}
 	}
+	
+	public String getRank()
+	{
+		return rank;
+	}
+	
 	
 	public int getValue()
 	{

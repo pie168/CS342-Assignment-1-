@@ -44,7 +44,8 @@ public class Pile {
 			}
 			else if(pileDeck[i] == null && pileDeck[i-1] != null)
 			{
-				int value = inputCard.getValue() - pileDeck[i-1].getValue();
+				int value = pileDeck[i-1].getValue() - inputCard.getValue();
+				
 				String prevColor = pileDeck[i-1].getColor();
 				String currColor = inputCard.getColor();
 				
@@ -80,13 +81,18 @@ public class Pile {
 		return pileCounter;
 	}
 	
+	public void resetPile()
+	{
+		pileDeck = new Card[10];
+	}
 	
 	public void displayPile()
 	{
 		System.out.print("Pile " + Integer.toString(pileNumber) + ": ");
 		for(int i = 0; i < pileSize; i++)
 		{
-			if(pileDeck[i] == null)
+			
+			if(pileDeck[i] == null || pileDeck[i].getRank().equals("deafult"))
 			{
 				//System.out.println("NULL");
 				break;
