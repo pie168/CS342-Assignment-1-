@@ -7,7 +7,7 @@ public class Game {
 		
 		boolean isGame = true;
 		int turn = 0;  //Player is 0. Comp is 1
-		
+		int currentPlayer = 0;
 		String userInput;
 		int inputPile;
 		
@@ -39,74 +39,85 @@ public class Game {
 		
 		while(isGame)
 		{
-			for(int i = 0; i < 8; i++)
+			if(currentPlayer == 0)
 			{
-				pileArray[i].displayPile();
-			}
-			
-			player1.displayHand();
-			System.out.println(">>");
-			userInput = scan.next();
-		
-			if(userInput.equals("Q") || userInput.equals("q"))
-			{
-				System.out.println("EXITING...");
-				break;
-			}
-			
-			if(userInput.equals("D") || userInput.equals("d"))
-			{
-				deck.drawCard(player1);
-			}
-			
-			if(userInput.equals("L") || userInput.equals("l"))
-			{
-				String inputCard = scan.next();
-				int pileInput = scan.nextInt();
-				
-				System.out.print("Searching");
 				for(int i = 0; i < 8; i++)
 				{
-					System.out.print(".");
-					if(pileArray[i].getPileNum() == pileInput)
+					pileArray[i].displayPile();
+				}
+				
+				comp1.displayHandAmount();
+				player1.displayHand();
+				System.out.println("Move>>");
+				userInput = scan.next();
+			
+				if(userInput.equals("Q") || userInput.equals("q"))
+				{
+					System.out.println("EXITING...");
+					break;
+				}
+				
+				if(userInput.equals("D") || userInput.equals("d"))
+				{
+					if(!(deck.checkEmptyDeck()))
 					{
-						System.out.println(" |Found Card|");
-						player1.findCard(inputCard, pileArray[i]);
-						break;
+						deck.drawCard(player1);
+						currentPlayer = 1;
+					}
+					else
+					{
+						System.out.println("Deck is empty");
 					}
 				}
-			}
-			
-			if(userInput.equals("M") || userInput.equals("m"))
-			{
-				int fromPile = scan.nextInt();
-				int toPile = scan.nextInt();
-
-				for(int i = 0; i < 8; i++)
+				
+				if(userInput.equals("L") || userInput.equals("l"))
 				{
-					if(pileArray[i].getPileNum() == fromPile)
+					String inputCard = scan.next();
+					int pileInput = scan.nextInt();
+					
+					System.out.print("Searching");
+					for(int i = 0; i < 8; i++)
 					{
-						for(int w = 0; w < 8; w++)
+						System.out.print(".");
+						if(pileArray[i].getPileNum() == pileInput)
 						{
-							if(pileArray[w].getPileNum() == toPile)
-							{
-								mergePiles(pileArray[i], pileArray[w]);
-								break;
-							}
+							System.out.println(" |Found Card|");
+							player1.findCard(inputCard, pileArray[i]);
+							break;
 						}
 					}
 				}
 				
+				if(userInput.equals("M") || userInput.equals("m"))
+				{
+					int fromPile = scan.nextInt();
+					int toPile = scan.nextInt();
+	
+					for(int i = 0; i < 8; i++)
+					{
+						if(pileArray[i].getPileNum() == fromPile)
+						{
+							for(int w = 0; w < 8; w++)
+							{
+								if(pileArray[w].getPileNum() == toPile)
+								{
+									mergePiles(pileArray[i], pileArray[w]);
+									break;
+								}
+							}
+						}
+					}	
+				}
 			}
-		
-			
-		
-		
+			else //COMPUTERS TURN
+			{
+				System.out.println("Computer stuff.....BLEH");
+				currentPlayer = 0;
+			}
 		}
-
 	}
 	
-	public static void mergePiles(Pile fromPile, Pile toPile)
+	public static void mergePiles(Pile fromPile, Pile toPile)  //Move to the top of the next pile!!
 	{
 		if(fromPile.pileDeck[0] == null)
 		{
@@ -119,29 +130,53 @@ public class Game {
 		}
 		else
 		{
-			int toPileSize = toPile.getPileCounter();
-			int value = toPile.pileDeck[toPile.getPileCounter()].getValue() - fromPile.pileDeck[0].getValue();
+			int fromPileCounter = fromPile.getPileCounter();
+			int value = fromPile.pileDeck[fromPileCounter].getValue() - toPile.pileDeck[0].getValue();
 			
-			System.out.println("Moving pile w/ " + toPile.pileDeck[toPile.getPileCounter()].toString() + " to: " + fromPile.pileDeck[0].toString());
-			
-			String fromCard = fromPile.pileDeck[0].getColor();
-			String toCard = toPile.pileDeck[toPileSize].getColor();
+			String fromCard = fromPile.pileDeck[fromPileCounter].getColor();
+			String toCard = toPile.pileDeck[0].getColor();
 			
 			if(value == 1 && !(fromCard.equals(toCard)))
 			{
 				int counter = 0;
-				for(int i = toPileSize+1; i < fromPile.pileDeck.length; i++)
+				Card[] newPileHolder = new Card[52];
+				
+				System.out.println("Moving pile " + fromPile.getPileNum() + " to pile " + toPile.getPileNum());
+				
+				for(int i = 0; i < fromPile.pileDeck.length; i++)
 				{
-					if(fromPile.pileDeck[counter] == null)
+					if(fromPile.pileDeck[i] == null)
 					{
-						System.out.println("NULL: FROM PILE SIZE");
-						fromPile.resetPile();
 						break;
 					}
-					toPile.pileDeck[i] = fromPile.pileDeck[counter];
-					counter++;
+					else
+					{
+						newPileHolder[i] = fromPile.pileDeck[i];
+						counter++;
+					}
 				}
 				
+				for(int i = 0; i < toPile.pileDeck.length; i++)
+				{
+					if(toPile.pileDeck[i] == null)
+					{
+						break;
+					}
+					else
+					{
+						newPileHolder[counter] = toPile.pileDeck[i];
+						counter++;
+					}
+				}
+				
+				toPile.pileDeck = newPileHolder;
+				fromPile.resetPile();
+				fromPile.resetPileCounter();
+				
+			}
+			else
+			{
+				System.out.println("ERROR: " + fromPile.pileDeck[fromPileCounter].toString() + " cant be moved to " + toPile.pileDeck[0].toString());
 			}
 			
 		}

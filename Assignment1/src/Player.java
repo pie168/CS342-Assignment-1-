@@ -78,6 +78,11 @@ public class Player {
 		
 	}
 	
+	public void sortHand()
+	{
+		
+	}
+	
 	public void resizeHand(int emptyIndex, boolean doResize)
 	{
 		Card[] temp = new Card[handSize];
@@ -124,6 +129,7 @@ public class Player {
 			}
 			System.out.print(playerHand[i].toString() + " ");
 		}
+		System.out.println();
 		
 	}
 

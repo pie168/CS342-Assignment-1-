@@ -3,7 +3,7 @@ public class Pile {
 	
 	public Card[] pileDeck;
 	private int pileNumber;
-	private int pileSize = 2;
+	private int pileSize = 52;
 	private int pileCounter = 0;
 	
 	public Pile(int inputNumber)
@@ -14,7 +14,7 @@ public class Pile {
 	
 	public void growPileSize()
 	{
-		pileSize = pileSize+5;
+		pileSize = pileSize*2;
 		
 		Card[] temp = new Card[pileSize];
 		for(int i = 0; i < pileDeck.length; i++)
@@ -29,7 +29,7 @@ public class Pile {
 	{
 		boolean temp = false;
 		
-		if(pileCounter >= pileSize-1)
+		if(pileCounter == pileSize)
 		{
 			growPileSize();
 		}
@@ -52,6 +52,7 @@ public class Pile {
 				if(value == 1 && !(prevColor.equals(currColor)))
 				{
 					pileDeck[i] = inputCard;
+					pileCounter++;
 					temp = true;
 					break;
 				}
@@ -66,7 +67,6 @@ public class Pile {
 					break; 
 				}
 			}
-			pileCounter++;
 		}
 		return temp;
 	}
@@ -76,6 +76,11 @@ public class Pile {
 		return pileNumber;
 	}
 	
+	public void resetPileCounter()
+	{
+		pileCounter = 0;
+	}
+	
 	public int getPileCounter()
 	{
 		return pileCounter;
@@ -83,7 +88,7 @@ public class Pile {
 	
 	public void resetPile()
 	{
-		pileDeck = new Card[10];
+		pileDeck = new Card[pileSize];
 	}
 	
 	public void displayPile()
@@ -92,7 +97,7 @@ public class Pile {
 		for(int i = 0; i < pileSize; i++)
 		{
 			
-			if(pileDeck[i] == null || pileDeck[i].getRank().equals("deafult"))
+			if(pileDeck[i] == null || pileDeck == null)
 			{
 				//System.out.println("NULL");
 				break;

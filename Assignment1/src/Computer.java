@@ -2,7 +2,7 @@
 public class Computer {
 
 	public Card[] computerHand;
-	private int handSize = 7; 
+	private int handSize = 52; 
 	private int handCounter = 0;
 	
 	public Computer()
@@ -24,25 +24,43 @@ public class Computer {
 	
 	public void addCard(Card inputCard)
 	{
-		for(int i = 0; i < computerHand.length; i++)
+		
+		if(handCounter == handSize)
 		{
-			if(handCounter >= handSize-1)
-			{
-				growPileSize();
-			}
+			growPileSize();
+		}
+		
+		for(int i = 0; i < handSize; i++)
+		{
 			if(computerHand[i] == null)
 			{
 				computerHand[i] = inputCard;
+				handCounter++;
 				break;
 			}
-			handCounter++;
 		}
+	}
+	
+	public void displayHandAmount()
+	{
+		int cardAmount = 0;
+		for(int i = 0; i < handSize; i++)
+		{
+			if(computerHand[i] == null)
+			{
+				break;
+			}
+			else
+			{
+				cardAmount++;
+			}
+		}
+		System.out.println("The computer has " + cardAmount + " cards");
 	}
 	
 	public void displayHand()
 	{
-		int length = computerHand.length;
-		for(int i = 0; i < length; i++)
+		for(int i = 0; i < handSize; i++)
 		{
 			if(computerHand[i] == null)
 			{

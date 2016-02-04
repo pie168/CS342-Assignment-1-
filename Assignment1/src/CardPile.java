@@ -104,6 +104,18 @@ public class CardPile {
 		}
 	}
 	
+	public boolean checkEmptyDeck()
+	{
+		if(deckCounter == 52)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	public int checkDeckCounter()
 	{
 		return deckCounter;
