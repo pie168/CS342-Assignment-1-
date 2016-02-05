@@ -12,6 +12,11 @@ public class Pile {
 		this.pileNumber = inputNumber;
 	}
 	
+	public void initPile(Card inputCard)
+	{
+		addCard(inputCard);
+	}
+	
 	public void growPileSize()
 	{
 		pileSize = pileSize*2;
@@ -38,9 +43,24 @@ public class Pile {
 		{
 			if(pileDeck[0] == null)
 			{
-				pileDeck[0] = inputCard;
-				temp = true;
-				break;
+				if(pileNumber > 4 && inputCard.getRank().equals("K"))
+				{
+					pileDeck[0] = inputCard;
+					temp = true;
+					break;
+				}
+				else if(pileNumber < 5)
+				{
+					pileDeck[0] = inputCard;
+					temp = true;
+					break;
+				}
+				else
+				{
+					System.out.println("ERROR: You can only place a K at the start in this pile");
+					break;
+				}
+				
 			}
 			else if(pileDeck[i] == null && pileDeck[i-1] != null)
 			{
@@ -49,7 +69,7 @@ public class Pile {
 				String prevColor = pileDeck[i-1].getColor();
 				String currColor = inputCard.getColor();
 				
-				if(value == 1 && !(prevColor.equals(currColor)))
+				if(value == 1 && !(prevColor.equals(currColor)) )
 				{
 					pileDeck[i] = inputCard;
 					pileCounter++;

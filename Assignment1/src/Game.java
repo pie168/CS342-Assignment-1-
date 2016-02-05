@@ -23,7 +23,7 @@ public class Game {
 		Pile pile8 = new Pile(8);
 	*/
 		
-		Player player1 = new Player("Test");
+		Player player1 = new Player();
 		Computer comp1 = new Computer();
 		
 		deck.buildDeck();
@@ -34,8 +34,12 @@ public class Game {
 		for(int i = 0; i < 8; i++)
 		{
 			pileArray[i] = new Pile(i+1);
+			if(i < 4)
+			{
+				pileArray[i].addCard(deck.newDeck[i]);
+				deck.updateDeckCounter();
+			}
 		}
-		
 		
 		while(isGame)
 		{
@@ -47,7 +51,10 @@ public class Game {
 				}
 				
 				comp1.displayHandAmount();
+				player1.sortArray();
+				comp1.displayHand();
 				player1.displayHand();
+				System.out.println("Deck Amount: " + deck.cardsLeft());
 				System.out.println("Move>>");
 				userInput = scan.next();
 			
@@ -111,7 +118,9 @@ public class Game {
 			}
 			else //COMPUTERS TURN
 			{
-				System.out.println("Computer stuff.....BLEH");
+				comp1.moveOne(pileArray);
+				comp1.moveFive();
+				deck.drawCard(comp1);
 				currentPlayer = 0;
 			}
 		}

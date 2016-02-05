@@ -90,6 +90,10 @@ public class CardPile {
 		inputComputer.addCard(newDeck[deckCounter]);
 		deckCounter++;
 	}
+	public void updateDeckCounter()
+	{
+		deckCounter++;
+	}
 	
 	public void firstDeal(Player inputPlayer, Computer inputComputer)
 	{
@@ -114,6 +118,10 @@ public class CardPile {
 		{
 			return false;
 		}
+	}
+	public int cardsLeft()
+	{
+		return deckAmount - deckCounter;
 	}
 	
 	public int checkDeckCounter()
